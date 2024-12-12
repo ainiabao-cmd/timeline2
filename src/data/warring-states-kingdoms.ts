@@ -21,7 +21,10 @@ export const warringStatesKingdoms: Kingdom[] = [
           chinese: '稷下学宫建立',
           english: 'Establishment of Jixia Academy'
         },
-        description: 'Creation of the first state-sponsored academy in China',
+        description: {
+          chinese: '',
+          english: 'Creation of the first state-sponsored academy in China',
+        },
         category: 'cultural',
         importance: 1
       },
@@ -32,7 +35,10 @@ export const warringStatesKingdoms: Kingdom[] = [
           chinese: '齐国变法',
           english: 'Qi State Reforms'
         },
-        description: 'Implementation of political and economic reforms',
+        description: {
+          chinese: '',
+          english: 'Implementation of political and economic reforms',
+        },
         category: 'political',
         importance: 2
       },
@@ -43,7 +49,11 @@ export const warringStatesKingdoms: Kingdom[] = [
           chinese: '齐国商业繁荣',
           english: 'Qi Commercial Prosperity'
         },
-        description: 'Development of maritime trade and commerce',
+        description: {
+          chinese: '',
+          english: 'Development of maritime trade and commerce',
+        },
+
         category: 'economic',
         importance: 2
       }
@@ -69,7 +79,11 @@ export const warringStatesKingdoms: Kingdom[] = [
           chinese: '楚文化兴盛',
           english: 'Flourishing of Chu Culture'
         },
-        description: 'Development of distinctive Chu cultural traditions',
+        description: {
+          chinese: '',
+          english: 'Development of distinctive Chu cultural traditions',
+        },
+        
         category: 'cultural',
         importance: 2
       },
@@ -80,7 +94,11 @@ export const warringStatesKingdoms: Kingdom[] = [
           chinese: '楚赵联盟',
           english: 'Chu-Zhao Alliance'
         },
-        description: 'Formation of alliance between Chu and Zhao against Qin',
+        description: {
+          chinese: '',
+          english: 'Formation of alliance between Chu and Zhao against Qin',
+        },
+      
         category: 'political',
         importance: 2
       },
@@ -91,9 +109,59 @@ export const warringStatesKingdoms: Kingdom[] = [
           chinese: '楚辞创作',
           english: 'Creation of Chu Ci Poetry'
         },
-        description: 'Development of distinctive southern poetic traditions',
+        description: {
+          chinese: '',
+          english: 'Development of distinctive southern poetic traditions',
+        },
+
         category: 'cultural',
         importance: 1
+      }
+    ]
+  },
+  
+  {
+    id: 'zhao-kingdom',
+    name: {
+      chinese: '赵国',
+      english: 'State of Zhao'
+    },
+    period: {
+      start: -403,
+      end: -222
+    },
+    capital: ['Handan'],
+    notableRulers: ['King Wuling', 'King Xiaocheng'],
+    events: [
+      {
+        id: 'zhao-cavalry',
+        date: -307,
+        title: {
+          chinese: '赵武灵王胡服骑射',
+          english: 'Adoption of Nomadic Cavalry Tactics'
+        },
+        description: {
+          chinese: '',
+          english: 'King Wuling reforms military by adopting nomadic dress and cavalry tactics',
+        },
+
+        category: 'military',
+        importance: 1
+      },
+      {
+        id: 'zhao-reform',
+        date: -325,
+        title: {
+          chinese: '赵国改革',
+          english: 'Zhao Military Reforms'
+        },
+        description: {
+          chinese: '',
+          english: 'Comprehensive military reforms including adoption of cavalry',
+        },
+
+        category: 'military',
+        importance: 2
       }
     ]
   },
@@ -117,7 +185,11 @@ export const warringStatesKingdoms: Kingdom[] = [
           chinese: '商鞅变法',
           english: 'Reforms of Shang Yang'
         },
-        description: 'Implementation of Legalist reforms strengthening the Qin state',
+        description: {
+          chinese: '',
+          english: 'Implementation of Legalist reforms strengthening the Qin state',
+        },
+
         category: 'political',
         importance: 1
       },
@@ -128,7 +200,11 @@ export const warringStatesKingdoms: Kingdom[] = [
           chinese: '秦灭蜀国',
           english: 'Qin Conquers Shu'
         },
-        description: 'Conquest of Shu state, expanding Qin territory into Sichuan',
+        description: {
+          chinese: '',
+          english: 'Conquest of Shu state, expanding Qin territory into Sichuan',
+        },
+
         category: 'military',
         importance: 2
       },
@@ -139,46 +215,13 @@ export const warringStatesKingdoms: Kingdom[] = [
           chinese: '都江堰水利工程',
           english: 'Dujiangyan Irrigation System'
         },
-        description: 'Construction of sophisticated irrigation system in Sichuan',
-        category: 'technological',
-        importance: 1
-      }
-    ]
-  },
-  {
-    id: 'zhao-kingdom',
-    name: {
-      chinese: '赵国',
-      english: 'State of Zhao'
-    },
-    period: {
-      start: -403,
-      end: -222
-    },
-    capital: ['Handan'],
-    notableRulers: ['King Wuling', 'King Xiaocheng'],
-    events: [
-      {
-        id: 'zhao-cavalry',
-        date: -307,
-        title: {
-          chinese: '赵武灵王胡服骑射',
-          english: 'Adoption of Nomadic Cavalry Tactics'
+        description: {
+          chinese: '',
+          english: 'Construction of sophisticated irrigation system in Sichuan',
         },
-        description: 'King Wuling reforms military by adopting nomadic dress and cavalry tactics',
-        category: 'military',
+
+        category: 'scientific',
         importance: 1
-      },
-      {
-        id: 'zhao-reform',
-        date: -325,
-        title: {
-          chinese: '赵国改革',
-          english: 'Zhao Military Reforms'
-        },
-        description: 'Comprehensive military reforms including adoption of cavalry',
-        category: 'military',
-        importance: 2
       }
     ]
   },
@@ -202,7 +245,11 @@ export const warringStatesKingdoms: Kingdom[] = [
           chinese: '魏文侯变法',
           english: 'Reforms of Marquess Wen'
         },
-        description: 'Implementation of reforms strengthening Wei\'s military and economy',
+        description: {
+          chinese: '',
+          english: 'Implementation of reforms strengthening Wei\'s military and economy',
+        },
+
         category: 'political',
         importance: 2
       },
@@ -213,7 +260,11 @@ export const warringStatesKingdoms: Kingdom[] = [
           chinese: '魏国农业改革',
           english: 'Wei Agricultural Reforms'
         },
-        description: 'Implementation of advanced farming techniques',
+        description: {
+          chinese: '',
+          english: 'Implementation of advanced farming techniques',
+        },
+
         category: 'economic',
         importance: 2
       }
@@ -239,8 +290,12 @@ export const warringStatesKingdoms: Kingdom[] = [
           chinese: '韩国工匠',
           english: 'Han State Innovation'
         },
-        description: 'Development of advanced iron-working techniques',
-        category: 'technological',
+        description: {
+          chinese: '',
+          english: 'Development of advanced iron-working techniques',
+        },
+
+        category: 'scientific',
         importance: 2
       },
       {
@@ -250,7 +305,11 @@ export const warringStatesKingdoms: Kingdom[] = [
           chinese: '韩国军事改革',
           english: 'Han Military Reforms'
         },
-        description: 'Development of advanced crossbow technology',
+        description: {
+          chinese: '',
+          english: 'Development of advanced crossbow technology',
+        },
+
         category: 'military',
         importance: 2
       }
@@ -276,7 +335,11 @@ export const warringStatesKingdoms: Kingdom[] = [
           chinese: '燕国扩张',
           english: 'Yan Territorial Expansion'
         },
-        description: 'Expansion into northern territories and conflict with Xiongnu',
+        description: {
+          chinese: '',
+          english: 'Expansion into northern territories and conflict with Xiongnu',
+        },
+
         category: 'military',
         importance: 2
       },
@@ -287,7 +350,11 @@ export const warringStatesKingdoms: Kingdom[] = [
           chinese: '燕国学术发展',
           english: 'Yan Philosophical Development'
         },
-        description: 'Establishment of scholarly traditions',
+        description: {
+          chinese: '',
+          english: 'Establishment of scholarly traditions',
+        },
+
         category: 'cultural',
         importance: 2
       }

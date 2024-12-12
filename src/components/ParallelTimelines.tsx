@@ -3,12 +3,16 @@ import { motion } from 'framer-motion';
 import { Kingdom, HistoricalEvent } from '../types/timeline';
 import { TimelineLine } from './TimelineLine';
 import { useLanguage } from '../contexts/LanguageContext';
-import { calculateTimelineHeight, getDynastyDuration } from '../utils/timelineUtils';
+import {
+  calculateTimelineHeight,
+  getDynastyDuration,
+} from '../utils/timelineUtils';
 
 interface ParallelTimelinesProps {
   kingdoms: Kingdom[];
   startYear: number;
   endYear: number;
+  selectedCategories: HistoricalEvent['category'][];
   onEventClick?: (event: HistoricalEvent) => void;
   onYearChange?: (year: number) => void;
 }
@@ -18,6 +22,7 @@ export const ParallelTimelines: React.FC<ParallelTimelinesProps> = ({
   startYear,
   endYear,
   onEventClick,
+  selectedCategories,
   onYearChange,
 }) => {
   const { t } = useLanguage();
@@ -25,28 +30,29 @@ export const ParallelTimelines: React.FC<ParallelTimelinesProps> = ({
   const timelineHeight = calculateTimelineHeight(duration);
 
   const calculateTimelinePosition = (kingdom: Kingdom) => {
-    const start = ((Math.abs(startYear - kingdom.period.start)) / duration) * 90 + 5;
+    const start =
+      (Math.abs(startYear - kingdom.period.start) / duration) * 90 + 5;
     const kingdomDuration = getDynastyDuration(kingdom);
     const height = (kingdomDuration / duration) * 90;
-    
+
     return {
       top: `${start}%`,
-      height: `${height}%`
+      height: `${height}%`,
     };
   };
 
   return (
-    <div 
-      className="grid h-full" 
-      style={{ 
+    <div
+      className="grid h-full"
+      style={{
         gridTemplateColumns: `repeat(${kingdoms.length}, 1fr)`,
         gap: '2rem',
-        height: `${timelineHeight}px`
+        height: `${timelineHeight}px`,
       }}
     >
       {kingdoms.map((kingdom, index) => {
         const timelinePosition = calculateTimelinePosition(kingdom);
-        
+
         return (
           <motion.div
             key={kingdom.id}
@@ -56,19 +62,23 @@ export const ParallelTimelines: React.FC<ParallelTimelinesProps> = ({
             transition={{ delay: index * 0.1 }}
           >
             <div className="text-center mb-6">
-              <h3 className="text-xl font-bold text-white">{t(kingdom.name)}</h3>
+              <h3 className="text-xl font-bold text-white">
+                {t(kingdom.name)}
+              </h3>
               <p className="text-xs text-white/60">
-                {Math.abs(kingdom.period.start)} BCE - {Math.abs(kingdom.period.end)} BCE
+                {Math.abs(kingdom.period.start)} BCE -{' '}
+                {Math.abs(kingdom.period.end)} BCE
               </p>
             </div>
 
             <div className="relative h-full">
-              <div 
-                className="absolute w-full"
-                style={timelinePosition}
-              >
+              <div className="absolute w-full" style={timelinePosition}>
                 <TimelineLine
-                  events={kingdom.events}
+                  events={kingdom.events.filter(
+                    (event) =>
+                      selectedCategories.length === 0 ||
+                      selectedCategories.includes(event.category)
+                  )}
                   startYear={kingdom.period.start}
                   endYear={kingdom.period.end}
                   onEventClick={onEventClick}

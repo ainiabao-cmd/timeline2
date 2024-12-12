@@ -8,6 +8,7 @@ interface TimelineLineProps {
   events: HistoricalEvent[];
   startYear: number;
   endYear: number;
+  selectedCategories: HistoricalEvent['category'][];
   onEventClick?: (event: HistoricalEvent) => void;
   onYearChange?: (year: number) => void;
 }
@@ -17,37 +18,43 @@ export const TimelineLine: React.FC<TimelineLineProps> = ({
   startYear,
   endYear,
   onEventClick,
+  selectedCategories,
   onYearChange,
 }) => {
   const { t } = useLanguage();
   const [hoveredEventId, setHoveredEventId] = useState<string | null>(null);
   const timelineRef = useRef<HTMLDivElement>(null);
-  const sortedEvents = [...events].sort((a, b) => b.date - a.date);
+  const filteredEvents = events.filter(
+    (event) =>
+      (selectedCategories || []).length === 0 ||
+      (selectedCategories || []).includes(event.category)
+  );
+
+  const sortedEvents = [...filteredEvents].sort((a, b) => b.date - a.date);
   const totalDuration = Math.abs(endYear - startYear);
-  
+
   useEffect(() => {
     const handleScroll = () => {
       if (!timelineRef.current) return;
-      
+
       const timelineRect = timelineRef.current.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
       const timelineTop = timelineRect.top;
       const timelineHeight = timelineRect.height;
       const timelineBottom = timelineRect.bottom;
-      
+
       // Only update when timeline is in view
       if (timelineTop > viewportHeight || timelineBottom < 0) return;
-      
+
       // Calculate progress based on timeline position relative to viewport center
       const viewportCenter = viewportHeight / 2;
-      const timelineCenterOffset = timelineTop + (timelineHeight / 2);
+      const timelineCenterOffset = timelineTop + timelineHeight / 2;
       const distanceFromCenter = viewportCenter - timelineCenterOffset;
-      const maxDistance = timelineHeight / 2;
-      
+
       // Calculate progress (0 to 1)
-      let progress = 0.5 + (distanceFromCenter / timelineHeight);
+      let progress = 0.5 + distanceFromCenter / timelineHeight;
       progress = Math.max(0, Math.min(1, progress));
-      
+
       // Calculate and update current year
       const currentYear = calculateCurrentYear(startYear, endYear, progress);
       if (currentYear !== undefined) {
@@ -75,26 +82,26 @@ export const TimelineLine: React.FC<TimelineLineProps> = ({
   }, [startYear, endYear, onYearChange]);
 
   const calculatePosition = (date: number): number => {
-    const position = ((Math.abs(startYear - date)) / totalDuration) * 90 + 5;
+    const position = (Math.abs(startYear - date) / totalDuration) * 90 + 5;
     return Math.min(Math.max(position, 5), 95);
   };
 
   return (
     <div className="relative h-full" ref={timelineRef}>
       <div className="absolute left-1/2 top-[5%] bottom-[5%] w-0.5 bg-white/20" />
-      
+
       {sortedEvents.map((event, index) => {
         const position = calculatePosition(event.date);
         const isLeft = index % 2 === 0;
         const isHovered = hoveredEventId === event.id;
-        
+
         return (
           <motion.div
             key={event.id}
             className="absolute left-0 right-0 group"
-            style={{ 
+            style={{
               top: `${position}%`,
-              zIndex: isHovered ? 50 : 10
+              zIndex: isHovered ? 50 : 10,
             }}
             initial={{ opacity: 0, x: isLeft ? -20 : 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -110,7 +117,7 @@ export const TimelineLine: React.FC<TimelineLineProps> = ({
               />
             </div>
 
-            <div 
+            <div
               className={`absolute top-1/2 -translate-y-1/2 ${
                 isLeft ? 'right-[52%] pr-4 text-right' : 'left-[52%] pl-4'
               }`}
@@ -118,12 +125,16 @@ export const TimelineLine: React.FC<TimelineLineProps> = ({
               <motion.div
                 className={`bg-white/10 backdrop-blur-sm rounded-lg p-3 cursor-pointer
                           transition-all duration-200
-                          ${isHovered ? 'bg-white/20 scale-105' : 'hover:bg-white/20 hover:scale-105'}`}
+                          ${
+                            isHovered
+                              ? 'bg-white/20 scale-105'
+                              : 'hover:bg-white/20 hover:scale-105'
+                          }`}
                 onMouseEnter={() => setHoveredEventId(event.id)}
                 onMouseLeave={() => setHoveredEventId(null)}
                 onClick={() => onEventClick?.(event)}
                 style={{
-                  zIndex: isHovered ? 50 : 10
+                  zIndex: isHovered ? 50 : 10,
                 }}
               >
                 <h3 className="text-white font-bold text-sm">

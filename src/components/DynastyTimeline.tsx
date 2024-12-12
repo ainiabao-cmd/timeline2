@@ -7,6 +7,7 @@ import { calculateTimelineHeight, getDynastyDuration } from '../utils/timelineUt
 interface DynastyTimelineProps {
   dynasty: Dynasty;
   kingdoms?: Kingdom[];
+  selectedCategories: HistoricalEvent['category'][];
   onEventClick?: (event: HistoricalEvent) => void;
   onYearChange?: (year: number) => void;
 }
@@ -16,6 +17,7 @@ export const DynastyTimeline: React.FC<DynastyTimelineProps> = ({
   kingdoms,
   onEventClick,
   onYearChange,
+  selectedCategories
 }) => {
   const duration = getDynastyDuration(dynasty);
   const timelineHeight = calculateTimelineHeight(duration);
@@ -29,6 +31,7 @@ export const DynastyTimeline: React.FC<DynastyTimelineProps> = ({
           endYear={dynasty.period.end}
           onEventClick={onEventClick}
           onYearChange={onYearChange}
+          selectedCategories={selectedCategories}
         />
       ) : (
         <TimelineLine
@@ -37,6 +40,8 @@ export const DynastyTimeline: React.FC<DynastyTimelineProps> = ({
           endYear={dynasty.period.end}
           onEventClick={onEventClick}
           onYearChange={onYearChange}
+          selectedCategories={selectedCategories}
+          
         />
       )}
     </div>
